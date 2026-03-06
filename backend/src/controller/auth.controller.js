@@ -91,4 +91,14 @@ async function loginUser(req, res) {
     })
 }
 
-module.exports = { rigsteruser , loginUser };
+
+async function getme(req,res) {
+  const user  =await usermodel.findById(req.user.id)
+
+  
+  res.status(200).json({
+    message:"user fetched done",user
+  })
+}
+
+module.exports = { rigsteruser , loginUser,getme };
