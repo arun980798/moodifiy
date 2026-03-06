@@ -1,5 +1,5 @@
 const usermodel = require("../mdoels/user.model");
-
+const blacklistmodel = require("../mdoels/blacklist.model")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -101,4 +101,22 @@ async function getme(req,res) {
   })
 }
 
-module.exports = { rigsteruser , loginUser,getme };
+
+async function logout(req,res) {
+  
+  const token = req.cookie;
+
+
+
+res.clearCookie("token")
+  await blacklistmodel.create({
+    token
+  })
+
+
+  res.status(200).json({
+    message:"logout done "
+  })
+}
+
+module.exports = { rigsteruser , loginUser,getme,logout };
