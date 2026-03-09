@@ -1,6 +1,7 @@
 const usermodel = require("../mdoels/user.model");
 const blacklistmodel = require("../mdoels/blacklist.model")
 const jwt = require("jsonwebtoken");
+const redis = require("../config/cache")
 
 
 

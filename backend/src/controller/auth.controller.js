@@ -2,6 +2,7 @@ const usermodel = require("../mdoels/user.model");
 const blacklistmodel = require("../mdoels/blacklist.model")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const redis = require("../config/cache")
 
 async function rigsteruser(req, res) {
   const { username, email, password } = req.body;
@@ -109,9 +110,7 @@ async function logout(req,res) {
 
 
 res.clearCookie("token")
-  await blacklistmodel.create({
-    token
-  })
+ await redis.set(token,Date.now().toString())
 
 
   res.status(200).json({
